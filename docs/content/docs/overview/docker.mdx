@@ -5,21 +5,39 @@ description: Deploy Infinite Canvas with Docker Compose
 
 # Docker Deployment
 
-## Use the published image
+## Run with Docker Compose
 
 ```bash
 git clone git@github.com:basketikun/infinite-canvas.git
 cd infinite-canvas
-docker compose up -d
+docker compose up -d --build
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3000/workbench/`. `/` redirects there.
 
 ## Build locally
 
 ```bash
 docker compose -f docker-compose.local.yml up -d --build
 ```
+
+Open `http://localhost:3000/workbench/`. `/` redirects there.
+
+To put this container behind an existing reverse proxy that already occupies `/` (for example an API relay):
+
+```nginx
+location = /workbench {
+    return 301 /workbench/;
+}
+
+location /workbench/ {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+}
+```
+
+Do not strip `/workbench` in `proxy_pass`. In the app, set the provider Base URL to the site origin (for example `https://xxx.abc.com`), not `/workbench`.
 
 ## Documentation image
 

@@ -111,15 +111,17 @@ bun install
 bun run dev
 ```
 
+访问 `http://localhost:3000/workbench/`。
+
 ### Docker 运行
 
 ```bash
 git clone git@github.com:basketikun/infinite-canvas.git
 cd infinite-canvas
-docker compose up -d
+docker compose up -d --build
 ```
 
-运行后默认端口3000，可访问 `http://localhost:3000`。
+运行后默认端口 3000，访问 `http://localhost:3000/workbench/`。根路径 `/` 会跳转到该地址。
 
 首次打开后进入右上角配置，填入自己的 OpenAI 兼容 `Base URL` 和 `API Key`。
 

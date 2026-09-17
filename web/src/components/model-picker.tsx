@@ -2,6 +2,7 @@ import { useEffect, useId, useMemo, useState } from "react";
 import { Cpu } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { publicUrl } from "@/constant/env";
 import i18n from "@/i18n";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
@@ -107,11 +108,11 @@ function ModelIcon({ model }: { model: string }) {
 
 function resolveModelIcon(model: string) {
     const name = model.toLowerCase();
-    if (name.includes("claude") || name.includes("anthropic")) return "/icons/claude.svg";
-    if (name.includes("gemini") || name.includes("google")) return "/icons/gemini.svg";
-    if (name.includes("gpt") || name.includes("openai")) return "/icons/openai.svg";
-    if (name.includes("grok") || name.includes("grok")) return "/icons/grok.svg";
-    if (name.includes("deepseek") || name.includes("deepseek")) return "/icons/deepseek.svg";
-    if (name.includes("glm") || name.includes("glm")) return "/icons/glm.svg";
+    if (name.includes("claude") || name.includes("anthropic")) return publicUrl("icons/claude.svg");
+    if (name.includes("gemini") || name.includes("google")) return publicUrl("icons/gemini.svg");
+    if (name.includes("gpt") || name.includes("openai")) return publicUrl("icons/openai.svg");
+    if (name.includes("grok") || name.includes("grok")) return publicUrl("icons/grok.svg");
+    if (name.includes("deepseek") || name.includes("deepseek")) return publicUrl("icons/deepseek.svg");
+    if (name.includes("glm") || name.includes("glm")) return publicUrl("icons/glm.svg");
     return "";
 }

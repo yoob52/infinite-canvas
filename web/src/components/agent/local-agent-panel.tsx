@@ -127,7 +127,7 @@ export function LocalAgentPanel({ embedded, headless, autoConnect }: { embedded?
     const { t } = useTranslation();
     const theme = canvasThemes[useThemeStore((state) => state.theme)];
     const { message, modal } = App.useApp();
-    const { hash } = useLocation();
+    const { hash, pathname, search } = useLocation();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     // Field-level selectors with useShallow rerender only when these fields change.
@@ -948,7 +948,7 @@ export function LocalAgentPanel({ embedded, headless, autoConnect }: { embedded?
     useLayoutEffect(() => {
         const bootstrap = readAgentUrlBootstrap(hash);
         if (!bootstrap) return;
-        navigate(`${window.location.pathname}${window.location.search}${bootstrap.remainingHash}`, { replace: true });
+        navigate(`${pathname}${search}${bootstrap.remainingHash}`, { replace: true });
         if (!bootstrap.url || !bootstrap.token) {
             setAgentState({ fragmentBootstrap: false, activeTab: "setup", connectError: rt(!bootstrap.url ? "addressRequired" : "agentNotFound") });
             useAgentStore.getState().openPanel();
@@ -964,7 +964,7 @@ export function LocalAgentPanel({ embedded, headless, autoConnect }: { embedded?
         }
         errorLoggedRef.current = false;
         setAgentState({ url: bootstrap.url.replace(/\/$/, ""), token: bootstrap.token, enabled: true, connected: false, silentConnect: true, fragmentBootstrap: true, confirmTools: false, activity: rt("connecting"), connectError: "", activeTab: "setup" });
-    }, [hash, navigate, setAgentState]);
+    }, [hash, pathname, search, navigate, setAgentState]);
 
     useEffect(() => {
         if (urlAgentAutoConnect && confirmTools) setAgentState({ confirmTools: false });
